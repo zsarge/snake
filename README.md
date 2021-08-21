@@ -2,7 +2,11 @@
 
 Inspired by [this video](https://youtu.be/TOpBcfbAgPg)
 
-## build with:
+## in the project directory, build with:
+
+```
+mkdir build
+```
 
 ```
 cd build
