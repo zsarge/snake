@@ -46,4 +46,7 @@ class Snake {
 		snake_directon direction;
 };
 
+// include at end to avoid circular dependancy
+#include "ai.cpp"
+
 #endif

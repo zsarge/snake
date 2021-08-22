@@ -36,6 +36,8 @@ void Snake::move() {
 		Snake::set_segment(index, next_position);
 	}
 
+	AI::print_test(this);
+
 	// move head in correct direction
 	unsigned int x = Snake::body[0].x;
 	unsigned int y = Snake::body[0].y;
