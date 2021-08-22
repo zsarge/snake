@@ -32,7 +32,9 @@ make
 	</summary>
 
 	- add food
-	- add ai
+	- add better ai
+	- move ai into an object with internal state
+	- add [Hamiltonian pathing](https://en.wikipedia.org/wiki/Hamiltonian_path)
 
 </details>
 
