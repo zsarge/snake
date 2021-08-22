@@ -28,9 +28,7 @@ make
 
 <details>
 <summary>
-
-## To do:
-
+  <b> To do: </b>
 </summary>
 
 - add food
