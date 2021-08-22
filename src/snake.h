@@ -39,7 +39,7 @@ class Snake {
 		/* print to terminal */
 		void print_to_terminal() const;
 	private:
-		void assert_is_valid(unsigned int, unsigned int);
+		void assert_is_valid(unsigned int, unsigned int) const;
 		std::vector<vec2> body;
 		unsigned int board_width;
 		unsigned int board_height;

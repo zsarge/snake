@@ -17,7 +17,7 @@ Snake::~Snake() {
 	body.clear();
 }
 
-void Snake::assert_is_valid(unsigned int x, unsigned int y) {
+void Snake::assert_is_valid(unsigned int x, unsigned int y) const {
 	if (x >= board_width || x < 0) {
 		std::cout << "Error! x is invalid: " << x << std::endl;
 		throw invalid_move_exception();
@@ -81,7 +81,7 @@ void print_header(unsigned int board_width) {
 
 void Snake::print_to_terminal() const {
 	// render everything to a layer, and then print that layer
-	// this is not the most efficient, but, to me, it is simpler
+	// this is not the most efficient, but, to me, it is simpler than the alternatives
 	square layer[board_height][board_width] = {{square::blank}};
 
 	// initialize all memory

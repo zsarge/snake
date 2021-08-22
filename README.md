@@ -30,7 +30,9 @@ make
 	<summary>
 	To do:
 	</summary>
+
 	- add food
 	- add ai
+
 </details>
 
