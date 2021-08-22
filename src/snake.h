@@ -21,6 +21,12 @@ enum snake_directon {
 	right,
 };
 
+struct invalid_move_exception : public std::exception {
+   const char * what () const throw () {
+      return "Invalid move. Index is out of bounds.";
+   }
+};
+
 class Snake {
 	public:
 		Snake();
@@ -33,6 +39,7 @@ class Snake {
 		/* print to terminal */
 		void print_to_terminal() const;
 	private:
+		void assert_is_valid(unsigned int, unsigned int);
 		std::vector<vec2> body;
 		unsigned int board_width;
 		unsigned int board_height;

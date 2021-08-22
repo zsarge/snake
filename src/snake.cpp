@@ -17,6 +17,18 @@ Snake::~Snake() {
 	body.clear();
 }
 
+void Snake::assert_is_valid(unsigned int x, unsigned int y) {
+	if (x >= board_width || x < 0) {
+		std::cout << "Error! x is invalid: " << x << std::endl;
+		throw invalid_move_exception();
+	}
+
+	if (y >= board_height || y < 0)  {
+		std::cout << "Error! y is invalid: " << y << std::endl;
+		throw invalid_move_exception();
+	}
+}
+
 void Snake::move() {
 	// copy over snake positions
 	for (unsigned int index = Snake::body.size() - 1; index > 0; index--) {
@@ -31,16 +43,20 @@ void Snake::move() {
 	// note that translations are based around (0,0) being the top left corner
 	switch (direction) {
 		case up: 
-			Snake::set_segment(0, x, y - 1);
+			Snake::assert_is_valid(x, y - 1);
+			Snake::set_segment(0,  x, y - 1);
 			break;
 		case down: 
-			Snake::set_segment(0, x, y + 1);
+			Snake::assert_is_valid(x, y + 1);
+			Snake::set_segment(0,  x, y + 1);
 			break;
 		case left: 
-			Snake::set_segment(0, x - 1, y);
+			Snake::assert_is_valid(x - 1, y);
+			Snake::set_segment(0,  x - 1, y);
 			break;
 		case right: 
-			Snake::set_segment(0, x + 1, y);
+			Snake::assert_is_valid(x + 1, y);
+			Snake::set_segment(0,  x + 1, y);
 			break;
 	};
 }

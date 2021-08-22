@@ -3,8 +3,8 @@
 
 int main() {
 	Snake snek;
-	snek.print_to_terminal();
-	snek.move();
-	snek.print_to_terminal();
-	snek.print_body();
+	for (;;) {
+		snek.print_to_terminal();
+		snek.move();
+	}
 }
