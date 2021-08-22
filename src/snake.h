@@ -36,7 +36,6 @@ class Snake {
 		vec2 get_segment(int) const;
 		void set_segment(int, vec2);
 		void set_segment(int, unsigned int, unsigned int);
-		/* print to terminal */
 		void print_to_terminal() const;
 		bool check_is_valid(unsigned int, unsigned int) const;
 		snake_direction get_direction() const;
