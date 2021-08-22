@@ -40,10 +40,10 @@ namespace AI {
 
 	void print_debug_info(Snake* snake) {
 		std::cout
-			<< "snake ai:" << std::endl
+			<< "snake ai:\n"
 			<< "(" << snake->get_segment(0).x
 			<< "," << snake->get_segment(0).y
-			<< ")" << std::endl;
+			<< ")\n";
 	}
 
 	snake_direction get_right_turn(snake_direction direction) {

@@ -87,7 +87,7 @@ void print_header(unsigned int board_width) {
 	for (unsigned int x = 0; x < board_width; x++)
 		std::cout << "-";
 
-	std::cout << "+" << std::endl;
+	std::cout << "+\n";
 }
 
 void Snake::print_to_terminal() const {
@@ -112,7 +112,7 @@ void Snake::print_to_terminal() const {
 		for (unsigned int x = 0; x < board_width; x++)
 			std::cout << square_to_char(layer[y][x]);
 
-		std::cout << "|" << std::endl;
+		std::cout << "|\n";
 	}
 	print_header(board_width);
 
