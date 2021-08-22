@@ -42,14 +42,17 @@ void Snake::print_to_terminal() const {
 	// this is not the most efficient, but, to me, it is simpler
 	square layer[board_height][board_width] = {{square::blank}};
 
+	// initialize all memory
 	for (unsigned int y = 0; y < board_height; y++)
 		for (unsigned int x = 0; x < board_width; x++)
 			layer[y][x] = square::blank;
 
+	// copy snake positions to board layer
 	for (vec2 segment : Snake::body) {
 		layer[segment.y][segment.x] = square::snake;
 	}
 
+	// print the board to the terminal
 	print_header(board_width);
 	for (unsigned int y = 0; y < board_height; y++) {
 		std::cout << "|";
