@@ -1,5 +1,8 @@
 #include <iostream>
+#include "snake.cpp"
 
 int main() {
-	std::cout << "Hello World" << std::endl;
+	Snake snek;
+	snek.move();
+	snek.print_body();
 }
