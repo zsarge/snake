@@ -1,6 +1,7 @@
 #include <iostream>
 #include "snake.h"
 
+// Snake constructor
 Snake::Snake() {
 	vec2 segment = {5, 5};
 	Snake::body.push_back(segment);
@@ -13,6 +14,7 @@ Snake::Snake() {
 	Snake::direction = snake_direction::right;
 }
 
+// Snake destructor
 Snake::~Snake() {
 	body.clear();
 }
@@ -49,19 +51,19 @@ void Snake::move() {
 
 	// note that translations are based around (0,0) being the top left corner
 	switch (direction) {
-		case up: 
+		case up:
 			Snake::assert_is_valid(x, y - 1);
 			Snake::set_segment(0,  x, y - 1);
 			break;
-		case down: 
+		case down:
 			Snake::assert_is_valid(x, y + 1);
 			Snake::set_segment(0,  x, y + 1);
 			break;
-		case left: 
+		case left:
 			Snake::assert_is_valid(x - 1, y);
 			Snake::set_segment(0,  x - 1, y);
 			break;
-		case right: 
+		case right:
 			Snake::assert_is_valid(x + 1, y);
 			Snake::set_segment(0,  x + 1, y);
 			break;
@@ -81,8 +83,10 @@ char square_to_char(square sqr) {
 
 void print_header(unsigned int board_width) {
 	std::cout << "+";
+
 	for (unsigned int x = 0; x < board_width; x++)
 		std::cout << "-";
+
 	std::cout << "+" << std::endl;
 }
 
@@ -97,17 +101,17 @@ void Snake::print_to_terminal() const {
 			layer[y][x] = square::blank;
 
 	// copy snake positions to board layer
-	for (vec2 segment : Snake::body) {
+	for (vec2 segment : Snake::body)
 		layer[segment.y][segment.x] = square::snake;
-	}
 
 	// print the board to the terminal
 	print_header(board_width);
 	for (unsigned int y = 0; y < board_height; y++) {
 		std::cout << "|";
-		for (unsigned int x = 0; x < board_width; x++) {
+
+		for (unsigned int x = 0; x < board_width; x++)
 			std::cout << square_to_char(layer[y][x]);
-		}
+
 		std::cout << "|" << std::endl;
 	}
 	print_header(board_width);
@@ -117,11 +121,11 @@ void Snake::print_to_terminal() const {
 
 void Snake::print_body() const {
 	for (int i = 0; i < Snake::body.size(); i++)
-		std::cout 
-			<< "(" 
-			<< Snake::body[i].x 
+		std::cout
+			<< "("
+			<< Snake::body[i].x
 			<< ","
-			<< Snake::body[i].y 
+			<< Snake::body[i].y
 			<< ")"
 			<< std::endl;
 }
