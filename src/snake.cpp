@@ -1,10 +1,6 @@
 #include <iostream>
 #include "snake.h"
 
-void Snake::move() {
-	std::cout << "moved" << std::endl;
-}
-
 Snake::Snake() {
 	vec2 segment = {5, 5};
 	Snake::body.push_back(segment);
@@ -13,10 +9,40 @@ Snake::Snake() {
 
 	board_height = 10;
 	board_width  = 10;
+
+	Snake::direction = snake_directon::right;
 }
 
 Snake::~Snake() {
 	body.clear();
+}
+
+void Snake::move() {
+	// copy over snake positions
+	for (unsigned int index = Snake::body.size() - 1; index > 0; index--) {
+		vec2 next_position = Snake::get_segment(index - 1);
+		Snake::set_segment(index, next_position);
+	}
+
+	// move head in correct direction
+	unsigned int x = Snake::body[0].x;
+	unsigned int y = Snake::body[0].y;
+
+	// note that translations are based around (0,0) being the top left corner
+	switch (direction) {
+		case up: 
+			Snake::set_segment(0, x, y - 1);
+			break;
+		case down: 
+			Snake::set_segment(0, x, y + 1);
+			break;
+		case left: 
+			Snake::set_segment(0, x - 1, y);
+			break;
+		case right: 
+			Snake::set_segment(0, x + 1, y);
+			break;
+	};
 }
 
 char square_to_char(square sqr) {

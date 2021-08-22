@@ -14,6 +14,13 @@ enum square {
 	// food // not implemented
 };
 
+enum snake_directon {
+	up,
+	down,
+	left,
+	right,
+};
+
 class Snake {
 	public:
 		Snake();
@@ -29,6 +36,7 @@ class Snake {
 		std::vector<vec2> body;
 		unsigned int board_width;
 		unsigned int board_height;
+		snake_directon direction;
 };
 
 #endif
