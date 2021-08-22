@@ -10,11 +10,16 @@ Snake::Snake() {
 	board_height = 10;
 	board_width  = 10;
 
-	Snake::direction = snake_directon::right;
+	Snake::direction = snake_direction::right;
 }
 
 Snake::~Snake() {
 	body.clear();
+}
+
+bool Snake::check_is_valid(unsigned int x, unsigned int y) const {
+	return (x < board_width && x >= 0) &&
+		(y < board_height && y >= 0);
 }
 
 void Snake::assert_is_valid(unsigned int x, unsigned int y) const {
@@ -36,7 +41,7 @@ void Snake::move() {
 		Snake::set_segment(index, next_position);
 	}
 
-	AI::print_test(this);
+	direction = AI::get_best_direction(this);
 
 	// move head in correct direction
 	unsigned int x = Snake::body[0].x;
@@ -134,4 +139,6 @@ void Snake::set_segment(int index, unsigned int x, unsigned int y) {
 	body[index] = segment;
 }
 
-
+snake_direction Snake::get_direction() const {
+	return Snake::direction;
+}

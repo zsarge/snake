@@ -14,7 +14,7 @@ enum square {
 	// food // not implemented
 };
 
-enum snake_directon {
+enum snake_direction {
 	up,
 	down,
 	left,
@@ -38,12 +38,15 @@ class Snake {
 		void set_segment(int, unsigned int, unsigned int);
 		/* print to terminal */
 		void print_to_terminal() const;
+		bool check_is_valid(unsigned int, unsigned int) const;
+		snake_direction get_direction() const;
+
 	private:
 		void assert_is_valid(unsigned int, unsigned int) const;
 		std::vector<vec2> body;
 		unsigned int board_width;
 		unsigned int board_height;
-		snake_directon direction;
+		snake_direction direction;
 };
 
 // include at end to avoid circular dependancy
