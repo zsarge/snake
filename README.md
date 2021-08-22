@@ -27,14 +27,17 @@ make
 ```
 
 <details>
-	<summary>
-	To do:
-	</summary>
+<summary>
 
-	- add food
-	- add better ai
-	- move ai into an object with internal state
-	- add [Hamiltonian pathing](https://en.wikipedia.org/wiki/Hamiltonian_path)
+## To do:
+
+</summary>
+
+- add food
+- add better ai
+- move ai into an object with internal state
+- add [Hamiltonian pathing](https://en.wikipedia.org/wiki/Hamiltonian_path)
+- autoformat code
 
 </details>
 
