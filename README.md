@@ -20,16 +20,8 @@ make
 
 -------
 
-<details>
-<summary>
-  <b> To do: </b>
-</summary>
+## To do: 
 
-- add food
-- add better ai
-- move ai into an object with internal state
 - add [Hamiltonian pathing](https://en.wikipedia.org/wiki/Hamiltonian_path)
-- autoformat code
 
-</details>
 
