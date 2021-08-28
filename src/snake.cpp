@@ -1,5 +1,7 @@
 #include "snake.h"
 
+alskdjalsdj
+
 // Snake constructor
 Snake::Snake() {
 	vec2 segment = {5, 5};
