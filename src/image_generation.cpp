@@ -3,7 +3,7 @@
 #define PREFIX "./frames/"
 #define DEFAULT_PIXEL Pixel{61u, 61u, 61u} // a nice gray color
 #define BORDER_PIXEL Pixel{31u, 28u, 28u}  // a darker gray color
-#define SNAKE_PIXEL Pixel{255u, 0u, 0u}  // a darker gray color
+#define SNAKE_PIXEL Pixel{140u, 247u, 93u}  // a light green color
 
 #define SCALAR 7
 
