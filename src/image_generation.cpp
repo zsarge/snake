@@ -2,7 +2,9 @@
 
 #define PREFIX "./frames/"
 #define DEFAULT_PIXEL Pixel{61u, 61u, 61u} // a nice gray color
-#define RED_PIXEL Pixel{255u, 0u, 0u}      // a red color
+#define BORDER_PIXEL Pixel{31u, 28u, 28u}  // a darker gray color
+
+#define SCALAR 7
 
 namespace IMAGE_GEN {
 	std::string generate_folder_name() {
@@ -30,15 +32,32 @@ namespace IMAGE_GEN {
 		// each pixel of board size gets 7x7 pixels in the buffer
 		std::vector<std::vector<Pixel>> buffer(
 			b_height * 7,
-			std::vector<Pixel>(b_width * 7, DEFAULT_PIXEL)
+			std::vector<Pixel>(b_width * SCALAR, DEFAULT_PIXEL)
 		);
 
 		return buffer;
 	}
 
 	void draw_borders(std::vector<std::vector<Pixel>>& buffer, Snake* snake) {
-		for (unsigned int i = 0; i < snake->get_board_width(); i++) {
-			buffer[0][i] = RED_PIXEL;
+		// lines are created on both sides of each grid square
+		int starts[] = {0, SCALAR - 1};
+		
+		// draw horizontal lines
+		for (int start : starts) {
+			for (unsigned int y = start; y < snake->get_board_height() * SCALAR; y += SCALAR) {
+				for (unsigned int x = 0; x < snake->get_board_width() * SCALAR; x++) {
+					buffer[y][x] = BORDER_PIXEL;
+				}
+			}
+		}
+
+		// draw vertical lines
+		for (int start : starts) {
+			for (unsigned int x = start; x < snake->get_board_width() * SCALAR; x += SCALAR) {
+				for (unsigned int y = 0; y < snake->get_board_height() * SCALAR; y++) {
+					buffer[y][x] = BORDER_PIXEL;
+				}
+			}
 		}
 	}
 
@@ -59,8 +78,8 @@ namespace IMAGE_GEN {
 			std::ios_base::out | std::ios_base::binary
 		);
 
-		ofs << "P3" << std::endl << b_width * 7
-			<< ' ' << b_height * 7 << std::endl
+		ofs << "P3" << std::endl << b_width * SCALAR
+			<< ' ' << b_height * SCALAR << std::endl
 			<< "255" << std::endl;
 
 		std::vector<std::vector<Pixel>> buffer = create_snake_buffer(snake);
