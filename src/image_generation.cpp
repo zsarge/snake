@@ -1,27 +1,11 @@
 #include "image_generation.h"
 
-#define PREFIX "./frames/"
-#define DEFAULT_PIXEL Pixel{61u, 61u, 61u} // a nice gray color
-#define BORDER_PIXEL Pixel{31u, 28u, 28u}  // a darker gray color
-#define SNAKE_PIXEL Pixel{140u, 247u, 93u}  // a light green color
-#define FOOD_PIXEL Pixel{254u, 0u, 0u}  // red
-
-#define SCALAR 7
-
-#define IMAGE_FORMAT 6 // valid options are 3 and 6
-// See https://www.cs.swarthmore.edu/~soni/cs35/f13/Labs/extras/01/ppm_info.html
-// and http://netpbm.sourceforge.net/doc/ppm.html
-// for more information about ppm files.
-
-#define Q(x) #x
-#define QUOTE(x) Q(x)
-
 std::string left_pad(std::string &str, const size_t width)
 {
-	    if (width > str.size()) {
-			str.insert(0, width - str.size(), '0');
-		}
-		return str;
+	if (width > str.size()) {
+		str.insert(0, width - str.size(), '0');
+	}
+	return str;
 }
 
 namespace IMAGE_GEN {
@@ -49,9 +33,9 @@ namespace IMAGE_GEN {
 
 		// each pixel of board size gets 7x7 pixels in the buffer
 		std::vector<std::vector<Pixel>> buffer(
-			b_height * 7,
-			std::vector<Pixel>(b_width * SCALAR, DEFAULT_PIXEL)
-		);
+				b_height * 7,
+				std::vector<Pixel>(b_width * SCALAR, DEFAULT_PIXEL)
+				);
 
 		return buffer;
 	}
@@ -126,9 +110,9 @@ namespace IMAGE_GEN {
 
 		// create file stream
 		std::ofstream ofs(
-			filename,
-			std::ios_base::out | std::ios_base::binary
-		);
+				filename,
+				std::ios_base::out | std::ios_base::binary
+				);
 
 		ofs << 'P' << QUOTE(IMAGE_FORMAT)
 			<< std::endl << b_width * SCALAR
@@ -141,7 +125,7 @@ namespace IMAGE_GEN {
 		draw_food(buffer, snake);
 
 		for (auto row : buffer) {
-			 for (auto pixel : row) {
+			for (auto pixel : row) {
 				write_pixel_to_ofstream(ofs, pixel);
 			}
 		}
