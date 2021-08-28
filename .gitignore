@@ -39,3 +39,6 @@ build/
 
 # images
 *.ppm
+
+# frames for snake
+frames/
