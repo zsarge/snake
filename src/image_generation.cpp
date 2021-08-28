@@ -1,6 +1,7 @@
 #include "image_generation.h"
 
 #define PREFIX "./frames/"
+#define DEFAULT_PIXEL Pixel{61u, 61u, 61u} // a nice gray color
 
 namespace IMAGE_GEN {
 	std::string generate_folder_name() {
@@ -17,26 +18,18 @@ namespace IMAGE_GEN {
 		std::filesystem::create_directories(PREFIX + folder_name);
 	}
 
+	/* We want a buffer for our snake so that we can write to it positionally. 
+	 * Additionally, this allows multiple layers to render to the same buffer,
+	 * which would not be possible if we were writing to a stream.
+	 */
 	std::vector<std::vector<Pixel>> create_snake_buffer(Snake* snake) {
 		unsigned int b_width = snake->get_board_width();
 		unsigned int b_height = snake->get_board_height();
 
 		std::vector<std::vector<Pixel>> buffer(
-			snake->get_board_height(),
-			std::vector<Pixel>(snake->get_board_width())
+			b_height,
+			std::vector<Pixel>(b_width, DEFAULT_PIXEL)
 		);
-
-		for (unsigned int j = 0u; j < b_height; ++j) {
-	 		for (unsigned int i = 0u; i < b_width; ++i) {
-				Pixel pixel = {
-					(color) (i % 256),
-					(color) (j % 256),
-					(color) ((i * j) % 256),
-				};
-
-				buffer[j][i] = pixel;
-			}
-		}
 
 		return buffer;
 	}
@@ -69,19 +62,6 @@ namespace IMAGE_GEN {
 				write_pixel_to_ofstream(ofs, pixel);
 			}
 		}
-
-		// for (auto j = 0u; j < b_height; ++j) {
-			// for (auto i = 0u; i < b_width; ++i) {
-				// Pixel pixel = {
-					// (color) (i % 256),
-					// (color) (j % 256),
-					// (color) ((i * j) % 256),
-				// };
-
-				// // ofs << (char) pixel.r << (char) pixel.g << (char) pixel.b;       // red, green, blue
-				// write_pixel_to_ofstream(ofs, pixel);
-			// }
-		// }
 
 		ofs.close();
 
