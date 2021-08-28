@@ -15,6 +15,14 @@
 #define Q(x) #x
 #define QUOTE(x) Q(x)
 
+std::string left_pad(std::string &str, const size_t width)
+{
+	    if (width > str.size()) {
+			str.insert(0, width - str.size(), '0');
+		}
+		return str;
+}
+
 namespace IMAGE_GEN {
 	std::string generate_folder_name() {
 		// for image generation:
@@ -79,6 +87,42 @@ namespace IMAGE_GEN {
 		}
 	}
 
+	void connect_segments(std::vector<std::vector<Pixel>>& buffer, Snake* snake) {
+		unsigned int i = 0;
+		do {
+			vec2 s1 = snake->get_segment(i);
+			vec2 s2 = snake->get_segment(i + 1);
+
+			vec2 top_left = {
+				std::min(s1.x, s2.x) * SCALAR + 2, 
+				std::min(s1.y, s2.y) * SCALAR + 2, 
+			};
+
+			vec2 bottom_right = {
+				std::max(s1.x, s2.x) * SCALAR + 5, 
+				std::max(s1.y, s2.y) * SCALAR + 5, 
+			};
+
+			std::cout << "top left: (" 
+				<< top_left.x << "," 
+				<< top_left.y << ")"
+				<< std::endl;
+
+			std::cout << "bottom right: (" 
+				<< bottom_right.x << "," 
+				<< bottom_right.y << ")"
+				<< std::endl;
+
+			std::cout << std::endl;
+
+			draw_rect(top_left, bottom_right, SNAKE_PIXEL, buffer);
+
+			// unsigned int x_1 = segment_1.x * SCALAR;
+			// unsigned int y_1 = segment_1.y * SCALAR;
+
+		} while (++i < snake->get_size() - 1);
+	}
+
 	void draw_segment(unsigned int index, std::vector<std::vector<Pixel>>& buffer, Snake* snake) {
 		vec2 segment = snake->get_segment(index);
 
@@ -92,9 +136,11 @@ namespace IMAGE_GEN {
 	}
 
 	void draw_snake(std::vector<std::vector<Pixel>>& buffer, Snake* snake) {
-		for (int i = 0; i < snake->get_size(); i++) {
+		for (unsigned int i = 0; i < snake->get_size(); i++) {
 			draw_segment(i, buffer, snake);
 		}
+
+		connect_segments(buffer, snake);
 	}
 
 	void print_to_image(Snake* snake) {
@@ -105,7 +151,8 @@ namespace IMAGE_GEN {
 		std::string filename = PREFIX;
 		filename.append(snake->get_folder_name());
 		filename.append("/");
-		filename.append(std::to_string(snake->get_next_frame_number()));
+		std::string filenumber = std::to_string(snake->get_next_frame_number());
+		filename.append(left_pad(filenumber, 5));
 		filename.append(".ppm");
 
 		// create file stream

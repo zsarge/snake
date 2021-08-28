@@ -30,6 +30,7 @@ namespace IMAGE_GEN {
 	void draw_borders(std::vector<std::vector<Pixel>>&, Snake*);
 	void draw_snake(std::vector<std::vector<Pixel>>&, Snake*);
 	void draw_segment(unsigned int, std::vector<std::vector<Pixel>>&, Snake*);
+	void connect_segments(std::vector<std::vector<Pixel>>&, Snake*);
 }
 
 #endif
