@@ -42,12 +42,13 @@ class Snake {
 		void set_segment(int, vec2);
 		void set_segment(int, unsigned int, unsigned int);
 		void print_to_terminal() const;
-		void print_to_image() const;
+		void print_to_image();
 		bool check_is_valid(unsigned int, unsigned int) const;
 		snake_direction get_direction() const;
 		unsigned int get_board_width() const;
 		unsigned int get_board_height() const;
 		unsigned int get_next_frame_number();
+		std::string get_folder_name() const;
 
 	private:
 		void assert_is_valid(unsigned int, unsigned int) const;

@@ -1,5 +1,7 @@
 #include "image_generation.h"
 
+#define PREFIX "./frames/"
+
 namespace IMAGE_GEN {
 	std::string generate_folder_name() {
 		// for image generation:                       
@@ -11,11 +13,22 @@ namespace IMAGE_GEN {
 		return oss.str();
 	}
 
-	void print_to_image(const Snake* snake) {
+	void create_folder(std::string folder_name) {
+		std::filesystem::create_directories(PREFIX + folder_name);
+	}
+
+	void print_to_image(Snake* snake) {
 		unsigned int b_width = snake->get_board_width();
 		unsigned int b_height = snake->get_board_height();
 
-		std::ofstream ofs("first.ppm", std::ios_base::out | std::ios_base::binary);
+		std::string filename = PREFIX;
+		filename.append(snake->get_folder_name());
+		filename.append("/");
+		filename.append(std::to_string(snake->get_next_frame_number()));
+		filename.append(".ppm");
+
+		std::ofstream ofs(filename, std::ios_base::out | std::ios_base::binary);
+
 		ofs << "P6" << std::endl << b_width << ' ' << b_height << std::endl << "255" << std::endl;
 
 		for (auto j = 0u; j < b_height; ++j)

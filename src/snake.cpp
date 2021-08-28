@@ -16,6 +16,8 @@ Snake::Snake() {
 	Snake::frame_number = 0;
 
     Snake::folder_name = IMAGE_GEN::generate_folder_name();
+	IMAGE_GEN::create_folder(Snake::folder_name);
+
 	std::cout << Snake::folder_name << std::endl;
 }
 
@@ -165,7 +167,11 @@ unsigned int Snake::get_next_frame_number() {
 	return frame_number;
 }
 
-void Snake::print_to_image() const {
+void Snake::print_to_image() {
 	IMAGE_GEN::print_to_image(this);
+}
+
+std::string Snake::get_folder_name() const {
+	return folder_name;
 }
 

@@ -10,9 +10,13 @@
 #include <ctime>
 #include <sstream>
 
+// create folder
+#include <filesystem>
+
 namespace IMAGE_GEN {
 	void print_to_image(Snake* snake);
 	std::string generate_folder_name();
+	void create_folder(std::string);
 }
 
 #endif
