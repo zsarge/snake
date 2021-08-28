@@ -6,6 +6,14 @@
 
 #define SCALAR 7
 
+#define IMAGE_FORMAT 6 // valid options are 3 and 6
+// See https://www.cs.swarthmore.edu/~soni/cs35/f13/Labs/extras/01/ppm_info.html
+// and http://netpbm.sourceforge.net/doc/ppm.html
+// for more information about ppm files.
+
+#define Q(x) #x
+#define QUOTE(x) Q(x)
+
 namespace IMAGE_GEN {
 	std::string generate_folder_name() {
 		// for image generation:
@@ -78,7 +86,8 @@ namespace IMAGE_GEN {
 			std::ios_base::out | std::ios_base::binary
 		);
 
-		ofs << "P3" << std::endl << b_width * SCALAR
+		ofs << 'P' << QUOTE(IMAGE_FORMAT)
+			<< std::endl << b_width * SCALAR
 			<< ' ' << b_height * SCALAR << std::endl
 			<< "255" << std::endl;
 
@@ -96,11 +105,14 @@ namespace IMAGE_GEN {
 	}
 
 	void write_pixel_to_ofstream(std::ofstream& ofs, Pixel pixel) {
-		// write P6
-		// ofs << (char) pixel.r << (char) pixel.g << (char) pixel.b;
-		// write P3
+#if IMAGE_FORMAT == 6 
+		// write P6 format
+		ofs << (char) pixel.r << (char) pixel.g << (char) pixel.b;
+#else
+		// write P3 format
 		ofs << std::to_string(pixel.r) <<  ' ' <<
 			std::to_string(pixel.g) <<  ' ' <<
 			std::to_string(pixel.b) << std::endl;
+#endif
 	}
 }
