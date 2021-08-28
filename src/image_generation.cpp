@@ -2,6 +2,7 @@
 
 #define PREFIX "./frames/"
 #define DEFAULT_PIXEL Pixel{61u, 61u, 61u} // a nice gray color
+#define RED_PIXEL Pixel{255u, 0u, 0u}      // a red color
 
 namespace IMAGE_GEN {
 	std::string generate_folder_name() {
@@ -35,6 +36,12 @@ namespace IMAGE_GEN {
 		return buffer;
 	}
 
+	void draw_borders(std::vector<std::vector<Pixel>>& buffer, Snake* snake) {
+		for (unsigned int i = 0; i < snake->get_board_width(); i++) {
+			buffer[0][i] = RED_PIXEL;
+		}
+	}
+
 	void print_to_image(Snake* snake) {
 		unsigned int b_width = snake->get_board_width();
 		unsigned int b_height = snake->get_board_height();
@@ -52,11 +59,12 @@ namespace IMAGE_GEN {
 			std::ios_base::out | std::ios_base::binary
 		);
 
-		ofs << "P6" << std::endl << b_width
-			<< ' ' << b_height << std::endl
+		ofs << "P3" << std::endl << b_width * 7
+			<< ' ' << b_height * 7 << std::endl
 			<< "255" << std::endl;
 
 		std::vector<std::vector<Pixel>> buffer = create_snake_buffer(snake);
+		draw_borders(buffer, snake);
 
 		for (auto row : buffer) {
 			 for (auto pixel : row) {
@@ -69,6 +77,11 @@ namespace IMAGE_GEN {
 	}
 
 	void write_pixel_to_ofstream(std::ofstream& ofs, Pixel pixel) {
-		ofs << (char) pixel.r << (char) pixel.g << (char) pixel.b;
+		// write P6
+		// ofs << (char) pixel.r << (char) pixel.g << (char) pixel.b;
+		// write P3
+		ofs << std::to_string(pixel.r) <<  ' ' <<
+			std::to_string(pixel.g) <<  ' ' <<
+			std::to_string(pixel.b) << std::endl;
 	}
 }

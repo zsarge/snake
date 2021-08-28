@@ -26,8 +26,8 @@ namespace IMAGE_GEN {
 	std::string generate_folder_name();
 	void create_folder(std::string);
 	void write_pixel_to_ofstream(std::ofstream&, Pixel);
-
 	std::vector<std::vector<Pixel>> create_snake_buffer(Snake*);
+	void draw_borders(std::vector<std::vector<Pixel>>&, Snake*);
 }
 
 #endif
