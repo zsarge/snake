@@ -3,6 +3,7 @@
 #define PREFIX "./frames/"
 #define DEFAULT_PIXEL Pixel{61u, 61u, 61u} // a nice gray color
 #define BORDER_PIXEL Pixel{31u, 28u, 28u}  // a darker gray color
+#define SNAKE_PIXEL Pixel{255u, 0u, 0u}  // a darker gray color
 
 #define SCALAR 7
 
@@ -29,7 +30,7 @@ namespace IMAGE_GEN {
 		std::filesystem::create_directories(PREFIX + folder_name);
 	}
 
-	/* We want a buffer for our snake so that we can write to it positionally. 
+	/* We want a buffer for our snake so that we can write to it positionally.
 	 * Additionally, this allows multiple layers to render to the same buffer,
 	 * which would not be possible if we were writing to a stream.
 	 */
@@ -49,7 +50,7 @@ namespace IMAGE_GEN {
 	void draw_borders(std::vector<std::vector<Pixel>>& buffer, Snake* snake) {
 		// lines are created on both sides of each grid square
 		int starts[] = {0, SCALAR - 1};
-		
+
 		// draw horizontal lines
 		for (int start : starts) {
 			for (unsigned int y = start; y < snake->get_board_height() * SCALAR; y += SCALAR) {
@@ -66,6 +67,33 @@ namespace IMAGE_GEN {
 					buffer[y][x] = BORDER_PIXEL;
 				}
 			}
+		}
+	}
+
+	void draw_rect(vec2 top_left, vec2 bottom_right, Pixel pixel, std::vector<std::vector<Pixel>>& buffer) {
+		// vec2 is being used here to represent start and end points, instead of a snake segment
+		for (int y = top_left.y; y < bottom_right.y; y++) {
+			for (int x = top_left.x; x < bottom_right.x; x++) {
+				buffer[y][x] = pixel;
+			}
+		}
+	}
+
+	void draw_segment(unsigned int index, std::vector<std::vector<Pixel>>& buffer, Snake* snake) {
+		vec2 segment = snake->get_segment(index);
+
+		unsigned int x = segment.x * SCALAR;
+		unsigned int y = segment.y * SCALAR;
+
+		vec2 top_left = {x + 2, y + 2};
+		vec2 bottom_right = {x + 5, y + 5};
+
+		draw_rect(top_left, bottom_right, SNAKE_PIXEL, buffer);
+	}
+
+	void draw_snake(std::vector<std::vector<Pixel>>& buffer, Snake* snake) {
+		for (int i = 0; i < snake->get_size(); i++) {
+			draw_segment(i, buffer, snake);
 		}
 	}
 
@@ -93,6 +121,7 @@ namespace IMAGE_GEN {
 
 		std::vector<std::vector<Pixel>> buffer = create_snake_buffer(snake);
 		draw_borders(buffer, snake);
+		draw_snake(buffer, snake);
 
 		for (auto row : buffer) {
 			 for (auto pixel : row) {
@@ -105,7 +134,7 @@ namespace IMAGE_GEN {
 	}
 
 	void write_pixel_to_ofstream(std::ofstream& ofs, Pixel pixel) {
-#if IMAGE_FORMAT == 6 
+#if IMAGE_FORMAT == 6
 		// write P6 format
 		ofs << (char) pixel.r << (char) pixel.g << (char) pixel.b;
 #else

@@ -38,6 +38,7 @@ class Snake {
 		~Snake();
 		void move();
 		void print_body() const;
+		unsigned int get_size() const;
 		vec2 get_segment(int) const;
 		void set_segment(int, vec2);
 		void set_segment(int, unsigned int, unsigned int);

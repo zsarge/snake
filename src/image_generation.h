@@ -28,6 +28,8 @@ namespace IMAGE_GEN {
 	void write_pixel_to_ofstream(std::ofstream&, Pixel);
 	std::vector<std::vector<Pixel>> create_snake_buffer(Snake*);
 	void draw_borders(std::vector<std::vector<Pixel>>&, Snake*);
+	void draw_snake(std::vector<std::vector<Pixel>>&, Snake*);
+	void draw_segment(unsigned int, std::vector<std::vector<Pixel>>&, Snake*);
 }
 
 #endif

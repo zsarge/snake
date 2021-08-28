@@ -137,6 +137,10 @@ void Snake::print_body() const {
 			<< std::endl;
 }
 
+unsigned int Snake::get_size() const {
+	return body.size();
+}
+
 vec2 Snake::get_segment(int index) const {
 	return body[index];
 }
