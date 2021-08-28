@@ -1,3 +1,6 @@
+#ifndef AI_GUARD
+#define AI_GUARD
+
 namespace AI {
 	void print_debug_info(Snake*);
 	snake_direction get_best_direction(Snake*);
@@ -5,3 +8,5 @@ namespace AI {
 	bool front_is_clear(Snake*);
 	snake_direction get_right_turn(snake_direction);
 }
+
+#endif
