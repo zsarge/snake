@@ -3,6 +3,11 @@
 
 #include <vector>
 
+// for time string generation
+#include <iomanip>
+#include <ctime>
+#include <sstream>
+
 struct vec2 {
 	unsigned int x;
 	unsigned int y;
@@ -37,8 +42,12 @@ class Snake {
 		void set_segment(int, vec2);
 		void set_segment(int, unsigned int, unsigned int);
 		void print_to_terminal() const;
+		void print_to_image() const;
 		bool check_is_valid(unsigned int, unsigned int) const;
 		snake_direction get_direction() const;
+		unsigned int get_board_width() const;
+		unsigned int get_board_height() const;
+		unsigned int get_next_frame_number();
 
 	private:
 		void assert_is_valid(unsigned int, unsigned int) const;
@@ -46,9 +55,14 @@ class Snake {
 		unsigned int board_width;
 		unsigned int board_height;
 		snake_direction direction;
+
+		// for image generation:
+		unsigned int frame_number;
+		std::string folder_name;
 };
 
 // include at end to avoid circular dependancy
 #include "ai.cpp"
+#include "image_generation.cpp"
 
 #endif

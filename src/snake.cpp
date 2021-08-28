@@ -12,6 +12,11 @@ Snake::Snake() {
 	board_width  = 10;
 
 	Snake::direction = snake_direction::right;
+
+	Snake::frame_number = 0;
+
+    Snake::folder_name = IMAGE_GEN::generate_folder_name();
+	std::cout << Snake::folder_name << std::endl;
 }
 
 // Snake destructor
@@ -146,3 +151,21 @@ void Snake::set_segment(int index, unsigned int x, unsigned int y) {
 snake_direction Snake::get_direction() const {
 	return Snake::direction;
 }
+
+unsigned int Snake::get_board_width() const {
+	return board_width;
+}
+
+unsigned int Snake::get_board_height() const {
+	return board_height;
+}
+
+unsigned int Snake::get_next_frame_number() {
+	frame_number++;
+	return frame_number;
+}
+
+void Snake::print_to_image() const {
+	IMAGE_GEN::print_to_image(this);
+}
+
