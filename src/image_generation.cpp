@@ -26,9 +26,10 @@ namespace IMAGE_GEN {
 		unsigned int b_width = snake->get_board_width();
 		unsigned int b_height = snake->get_board_height();
 
+		// each pixel of board size gets 7x7 pixels in the buffer
 		std::vector<std::vector<Pixel>> buffer(
-			b_height,
-			std::vector<Pixel>(b_width, DEFAULT_PIXEL)
+			b_height * 7,
+			std::vector<Pixel>(b_width * 7, DEFAULT_PIXEL)
 		);
 
 		return buffer;
