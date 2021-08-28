@@ -1,4 +1,3 @@
-#include <iostream>
 #include "snake.h"
 
 // Snake constructor
@@ -7,11 +6,15 @@ Snake::Snake() {
 	Snake::body.push_back(segment);
 	segment = {6, 5};
 	Snake::body.push_back(segment);
+	segment = {6, 6};
+	Snake::body.push_back(segment);
+
+	Snake::food = vec2{0, 0};
 
 	board_height = 10;
 	board_width  = 10;
 
-	Snake::direction = snake_direction::right;
+	Snake::direction = snake_direction::left;
 
 	Snake::frame_number = 0;
 
@@ -44,10 +47,23 @@ void Snake::assert_is_valid(unsigned int x, unsigned int y) const {
 }
 
 void Snake::move() {
+	vec2 head = Snake::get_segment(0);
+	vec2 tail = {0,0}; // is only added if the head is on the food
+	bool should_grow = head.x == food.x && head.y == food.y;
+	// to grow, we copy the last segment, and add it again when the snake moves
+	if (should_grow) {
+		tail = Snake::get_segment(Snake::body.size() - 1);
+	}
+
 	// copy over snake positions
 	for (unsigned int index = Snake::body.size() - 1; index > 0; index--) {
 		vec2 next_position = Snake::get_segment(index - 1);
 		Snake::set_segment(index, next_position);
+	}
+
+	if (should_grow) {
+		Snake::body.push_back(tail);
+		food = Snake::get_new_food_location();
 	}
 
 	direction = AI::get_best_direction(this);
@@ -83,6 +99,8 @@ char square_to_char(square sqr) {
 			return ' ';
 		case snake:
 			return '#';
+		case food:
+			return '@';
 		default:
 			return '?';
 	}
@@ -110,6 +128,8 @@ void Snake::print_to_terminal() const {
 	// copy snake positions to board layer
 	for (vec2 segment : Snake::body)
 		layer[segment.y][segment.x] = square::snake;
+
+	layer[Snake::food.y][Snake::food.x] = square::food;
 
 	// print the board to the terminal
 	print_header(board_width);
@@ -177,5 +197,19 @@ void Snake::print_to_image() {
 
 std::string Snake::get_folder_name() const {
 	return folder_name;
+}
+
+vec2 Snake::get_new_food_location() const {
+	std::random_device rd; // obtain a random number from hardware
+	std::mt19937 gen(rd()); // seed the generator
+	std::uniform_int_distribution<> random_x(0, Snake::board_width  - 1);
+	std::uniform_int_distribution<> random_y(0, Snake::board_height - 1);
+
+	unsigned int x = random_x(gen); // generate numbers
+	unsigned int y = random_y(gen);
+	std::cout << "random (x,y) : (" <<
+		x << "," << y << ")" << std::endl;
+
+	return vec2{x,y};
 }
 

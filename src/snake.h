@@ -2,11 +2,15 @@
 #define SNAKE_GUARD
 
 #include <vector>
+#include <iostream>
 
 // for time string generation
 #include <iomanip>
 #include <ctime>
 #include <sstream>
+
+// for random number generation
+#include <random>
 
 struct vec2 {
 	unsigned int x;
@@ -16,7 +20,7 @@ struct vec2 {
 enum square {
 	blank = 0,
 	snake = 1,
-	// food // not implemented
+	food  = 2
 };
 
 enum snake_direction {
@@ -57,6 +61,8 @@ class Snake {
 		unsigned int board_width;
 		unsigned int board_height;
 		snake_direction direction;
+		vec2 food;
+		vec2 get_new_food_location() const;
 
 		// for image generation:
 		unsigned int frame_number;

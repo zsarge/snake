@@ -123,23 +123,7 @@ namespace IMAGE_GEN {
 		} while (++i < snake->get_size() - 1);
 	}
 
-	void draw_segment(unsigned int index, std::vector<std::vector<Pixel>>& buffer, Snake* snake) {
-		vec2 segment = snake->get_segment(index);
-
-		unsigned int x = segment.x * SCALAR;
-		unsigned int y = segment.y * SCALAR;
-
-		vec2 top_left = {x + 2, y + 2};
-		vec2 bottom_right = {x + 5, y + 5};
-
-		draw_rect(top_left, bottom_right, SNAKE_PIXEL, buffer);
-	}
-
 	void draw_snake(std::vector<std::vector<Pixel>>& buffer, Snake* snake) {
-		for (unsigned int i = 0; i < snake->get_size(); i++) {
-			draw_segment(i, buffer, snake);
-		}
-
 		connect_segments(buffer, snake);
 	}
 
