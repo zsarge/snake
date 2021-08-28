@@ -54,6 +54,7 @@ class Snake {
 		unsigned int get_board_height() const;
 		unsigned int get_next_frame_number();
 		std::string get_folder_name() const;
+		vec2 get_food() const;
 
 	private:
 		void assert_is_valid(unsigned int, unsigned int) const;

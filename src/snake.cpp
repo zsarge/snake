@@ -213,3 +213,7 @@ vec2 Snake::get_new_food_location() const {
 	return vec2{x,y};
 }
 
+vec2 Snake::get_food() const {
+	return food;
+}
+

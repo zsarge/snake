@@ -4,6 +4,7 @@
 #define DEFAULT_PIXEL Pixel{61u, 61u, 61u} // a nice gray color
 #define BORDER_PIXEL Pixel{31u, 28u, 28u}  // a darker gray color
 #define SNAKE_PIXEL Pixel{140u, 247u, 93u}  // a light green color
+#define FOOD_PIXEL Pixel{254u, 0u, 0u}  // red
 
 #define SCALAR 7
 
@@ -103,23 +104,7 @@ namespace IMAGE_GEN {
 				std::max(s1.y, s2.y) * SCALAR + 5, 
 			};
 
-			std::cout << "top left: (" 
-				<< top_left.x << "," 
-				<< top_left.y << ")"
-				<< std::endl;
-
-			std::cout << "bottom right: (" 
-				<< bottom_right.x << "," 
-				<< bottom_right.y << ")"
-				<< std::endl;
-
-			std::cout << std::endl;
-
 			draw_rect(top_left, bottom_right, SNAKE_PIXEL, buffer);
-
-			// unsigned int x_1 = segment_1.x * SCALAR;
-			// unsigned int y_1 = segment_1.y * SCALAR;
-
 		} while (++i < snake->get_size() - 1);
 	}
 
@@ -153,6 +138,7 @@ namespace IMAGE_GEN {
 		std::vector<std::vector<Pixel>> buffer = create_snake_buffer(snake);
 		draw_borders(buffer, snake);
 		draw_snake(buffer, snake);
+		draw_food(buffer, snake);
 
 		for (auto row : buffer) {
 			 for (auto pixel : row) {
@@ -174,5 +160,17 @@ namespace IMAGE_GEN {
 			std::to_string(pixel.g) <<  ' ' <<
 			std::to_string(pixel.b) << std::endl;
 #endif
+	}
+
+	void draw_food(std::vector<std::vector<Pixel>>& buffer, Snake* snake) {
+		vec2 food = snake->get_food();
+
+		unsigned int x = food.x * SCALAR;
+		unsigned int y = food.y * SCALAR;
+
+		vec2 top_left = {x + 2, y + 2};
+		vec2 bottom_right = {x + 5, y + 5};
+
+		draw_rect(top_left, bottom_right, FOOD_PIXEL, buffer);
 	}
 }
