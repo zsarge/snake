@@ -31,9 +31,9 @@ enum snake_direction {
 };
 
 struct invalid_move_exception : public std::exception {
-   const char * what () const throw () {
-      return "Invalid move. Index is out of bounds.";
-   }
+	const char * what () const throw () {
+		return "Invalid move. Index is out of bounds.";
+	}
 };
 
 class Snake {

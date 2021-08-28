@@ -18,7 +18,7 @@ Snake::Snake() {
 
 	Snake::frame_number = 0;
 
-    Snake::folder_name = IMAGE_GEN::generate_folder_name();
+	Snake::folder_name = IMAGE_GEN::generate_folder_name();
 	IMAGE_GEN::create_folder(Snake::folder_name);
 
 	std::cout << Snake::folder_name << std::endl;
