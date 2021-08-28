@@ -21,21 +21,36 @@ namespace IMAGE_GEN {
 		unsigned int b_width = snake->get_board_width();
 		unsigned int b_height = snake->get_board_height();
 
+		// get file name
 		std::string filename = PREFIX;
 		filename.append(snake->get_folder_name());
 		filename.append("/");
 		filename.append(std::to_string(snake->get_next_frame_number()));
 		filename.append(".ppm");
 
+		// create file stream
 		std::ofstream ofs(filename, std::ios_base::out | std::ios_base::binary);
 
 		ofs << "P6" << std::endl << b_width << ' ' << b_height << std::endl << "255" << std::endl;
 
-		for (auto j = 0u; j < b_height; ++j)
-			for (auto i = 0u; i < b_width; ++i)
-				ofs << (char) (i % 256) << (char) (j % 256) << (char) ((i * j) % 256);       // red, green, blue
+		for (unsigned int j = 0u; j < b_height; ++j) {
+	 		for (unsigned int i = 0u; i < b_width; ++i) {
+				// ofs << (char) (i % 256) << (char) (j % 256) << (char) ((i * j) % 256);       // red, green, blue
+				Pixel pixel = {
+					(color) (i % 256),
+					(color) (j % 256),
+					(color) ((i * j) % 256),
+				};
+
+				write_pixel_to_ofstream(&ofs, pixel);
+			}
+		}
 
 		ofs.close();
 
+	}
+
+	void write_pixel_to_ofstream(std::ofstream& ofs, Pixel pixel) {
+		ofs << (char) pixel.r << (char) pixel.g << (char) pixel.b;
 	}
 }
