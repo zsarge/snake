@@ -73,8 +73,7 @@ namespace IMAGE_GEN {
 	}
 
 	void connect_segments(std::vector<std::vector<Pixel>>& buffer, Snake* snake) {
-		unsigned int i = 0;
-		do {
+		for (unsigned int i = 0; i < snake->get_size() - 1; i++) {
 			vec2 s1 = snake->get_segment(i);
 			vec2 s2 = snake->get_segment(i + 1);
 
@@ -89,7 +88,7 @@ namespace IMAGE_GEN {
 			};
 
 			draw_rect(top_left, bottom_right, SNAKE_PIXEL, buffer);
-		} while (++i < snake->get_size() - 1);
+		}
 	}
 
 	void draw_snake(std::vector<std::vector<Pixel>>& buffer, Snake* snake) {

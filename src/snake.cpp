@@ -30,11 +30,29 @@ Snake::~Snake() {
 }
 
 bool Snake::check_is_valid(unsigned int x, unsigned int y) const {
+	for (vec2 segment : body) {
+		if (segment.x == x && segment.y == y) {
+			// not valid because the point is on the snake
+			return false; 
+		}
+	}
+
 	return (x < board_width && x >= 0) &&
 		(y < board_height && y >= 0);
 }
 
 void Snake::assert_is_valid(unsigned int x, unsigned int y) const {
+	for (vec2 segment : body) {
+		if (segment.x == x && segment.y == y) {
+			// not valid because the point is on the snake
+			std::cout << "Error! point (" 
+				<< x << "," << y
+				<< ") is on the snake." 
+				<< std::endl;
+			throw invalid_move_exception();
+		}
+	}
+
 	if (x >= board_width || x < 0) {
 		std::cout << "Error! x is invalid: " << x << std::endl;
 		throw invalid_move_exception();
@@ -205,10 +223,14 @@ vec2 Snake::get_new_food_location() const {
 	std::uniform_int_distribution<> random_x(0, Snake::board_width  - 1);
 	std::uniform_int_distribution<> random_y(0, Snake::board_height - 1);
 
-	unsigned int x = random_x(gen); // generate numbers
-	unsigned int y = random_y(gen);
-	std::cout << "random (x,y) : (" <<
-		x << "," << y << ")" << std::endl;
+	vec2 head = Snake::get_segment(0);
+	unsigned int x, y;
+	do {
+		x = random_x(gen); // generate numbers
+		y = random_y(gen);
+		std::cout << "random (x,y) : (" <<
+			x << "," << y << ")" << std::endl;
+	} while (!Snake::check_is_valid(x, y)); 
 
 	return vec2{x,y};
 }
