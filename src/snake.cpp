@@ -165,7 +165,7 @@ void Snake::print_to_terminal() const {
 }
 
 void Snake::print_body() const {
-	for (int i = 0; i < Snake::body.size(); i++)
+	for (unsigned int i = 0; i < Snake::body.size(); i++)
 		std::cout
 			<< "("
 			<< Snake::body[i].x
@@ -223,7 +223,6 @@ vec2 Snake::get_new_food_location() const {
 	std::uniform_int_distribution<> random_x(0, Snake::board_width  - 1);
 	std::uniform_int_distribution<> random_y(0, Snake::board_height - 1);
 
-	vec2 head = Snake::get_segment(0);
 	unsigned int x, y;
 	do {
 		x = random_x(gen); // generate numbers

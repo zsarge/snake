@@ -65,8 +65,8 @@ namespace IMAGE_GEN {
 
 	void draw_rect(vec2 top_left, vec2 bottom_right, Pixel pixel, std::vector<std::vector<Pixel>>& buffer) {
 		// vec2 is being used here to represent start and end points, instead of a snake segment
-		for (int y = top_left.y; y < bottom_right.y; y++) {
-			for (int x = top_left.x; x < bottom_right.x; x++) {
+		for (unsigned int y = top_left.y; y < bottom_right.y; y++) {
+			for (unsigned int x = top_left.x; x < bottom_right.x; x++) {
 				buffer[y][x] = pixel;
 			}
 		}
@@ -91,6 +91,8 @@ namespace IMAGE_GEN {
 		}
 	}
 
+	// I'm keeping this method around in case I want to add more detail 
+	// to the snake. (i.e. eyes)
 	void draw_snake(std::vector<std::vector<Pixel>>& buffer, Snake* snake) {
 		connect_segments(buffer, snake);
 	}
